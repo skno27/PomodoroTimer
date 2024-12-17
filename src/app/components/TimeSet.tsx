@@ -59,13 +59,15 @@ export default function TimeSet({ title }: TimeSetProps) {
       <h2>{title}</h2>
       <div className="set">
         <Arrow
+          id="break-decrement"
           onClick={decrementBreakTime}
           direction="down"
         />
         <div className="count-div">
-          <h1>{breakCount}</h1>
+          <h1 id="break-label">{breakCount}</h1>
         </div>
         <Arrow
+          id="break-increment"
           onClick={incrementBreakTime}
           direction="up"
         />
@@ -76,13 +78,15 @@ export default function TimeSet({ title }: TimeSetProps) {
       <h2>{title}</h2>
       <div className="set">
         <Arrow
+          id="session-decrement"
           onClick={decrementSessionTime}
           direction="down"
         />
         <div className="count-div">
-          <h1>{sessionCount}</h1>
+          <h1 id="session-label">{sessionCount}</h1>
         </div>
         <Arrow
+          id="session-increment"
           onClick={incrementSessionTime}
           direction="up"
         />

@@ -13,7 +13,9 @@ const timeControlSlice = createSlice({
   initialState,
   reducers: {
     incrementBreakLength: (state) => {
-      state.breakLength += 1;
+      if (state.breakLength < 61) {
+        state.breakLength += 1;
+      }
     },
     decrementBreakLength: (state) => {
       if (state.breakLength > 1) {
@@ -21,7 +23,9 @@ const timeControlSlice = createSlice({
       }
     },
     incrementSessionLength: (state) => {
-      state.sessionLength += 1;
+      if (state.sessionLength < 61) {
+        state.sessionLength += 1;
+      }
     },
     decrementSessionLength: (state) => {
       if (state.sessionLength > 1) {
@@ -50,6 +54,9 @@ const timeControlSlice = createSlice({
     updatePlaying: (state) => {
       state.playing = !state.playing;
     },
+    toggleCurrent: (state) => {
+      state.current = state.current === "session" ? "break" : "session";
+    },
   },
 });
 
@@ -62,16 +69,7 @@ export const {
   updateClockTime,
   updateCountdown,
   updatePlaying,
+  toggleCurrent,
 } = timeControlSlice.actions;
-
-// export const selectBreakTime = (state: RootState) =>
-//   `${state.timeControl.breakLength < 10 ? "0" : ""}${
-//     state.timeControl.breakLength
-//   }:00`;
-
-// export const selectSessionTime = (state: RootState) =>
-//   `${state.timeControl.sessionLength < 10 ? "0" : ""}${
-//     state.timeControl.sessionLength
-//   }:00`;
 
 export default timeControlSlice.reducer;

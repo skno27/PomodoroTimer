@@ -6,6 +6,8 @@ import { RootState } from "../../../store";
 import {
   updateCountdown,
   updatePlaying,
+  resetTimeLengths,
+  toggleCurrent,
 } from "../../../features/timeControl/timeControlSlice";
 import { useAlertAudio } from "../../../hooks/useAlert";
 export default function ControlBar() {
@@ -31,17 +33,16 @@ export default function ControlBar() {
     let interval: NodeJS.Timeout | null = null;
 
     if (playing) {
-      if (timeInSeconds === 0) {
-        setTimeInSeconds(
-          sessionActive ? sessionCountInSeconds : breakCountInSeconds
-        );
-      }
       interval = setInterval(() => {
         setTimeInSeconds((previous) => {
           if (previous < 1) {
             playAlert();
+            dispatch(toggleCurrent()); // switch label
+            const nextTime = sessionActive
+              ? breakCountInSeconds
+              : sessionCountInSeconds;
             setSessionActive((previousActive) => !previousActive);
-            return !sessionActive ? sessionCountInSeconds : breakCountInSeconds;
+            return nextTime;
           }
           return previous - 1;
         });
@@ -56,7 +57,7 @@ export default function ControlBar() {
     sessionCountInSeconds,
     breakCountInSeconds,
     playAlert,
-    timeInSeconds,
+    dispatch,
   ]);
 
   // listen for timer length changes when paused
@@ -80,18 +81,18 @@ export default function ControlBar() {
     dispatch(updateCountdown(formattedTime));
   }, [timeInSeconds, dispatch]);
 
-  const play = () => {
+  const play_pause = () => {
     if (!playing) dispatch(updatePlaying());
-  };
-  const pause = () => {
     if (playing) dispatch(updatePlaying());
   };
+  // const pause = () => {
+  // };
 
   const reset = () => {
-    pause();
+    if (playing) dispatch(updatePlaying());
+    dispatch(resetTimeLengths());
     setTimeInSeconds(sessionCountInSeconds);
     setSessionActive(true);
-    dispatch(updateCountdown(formatTime(sessionCountInSeconds)));
   };
 
   const formatTime = (time: number) => {
@@ -105,18 +106,19 @@ export default function ControlBar() {
   return (
     <div
       id="control-div"
-      className="flex justify-center mt-8">
+      className="w-1/12 flex justify-evenly mt-8">
       <button
+        id="start_stop"
         className="btn-control"
-        onClick={play}>
-        <FontAwesomeIcon icon={faPlay} />
+        onClick={play_pause}>
+        <div>
+          <FontAwesomeIcon icon={faPlay} />
+          <FontAwesomeIcon icon={faPause} />
+        </div>
       </button>
       <button
-        className="btn-control mx-2"
-        onClick={pause}>
-        <FontAwesomeIcon icon={faPause} />
-      </button>
-      <button className="btn-control">
+        id="reset"
+        className="btn-control">
         <FontAwesomeIcon
           icon={faRepeat}
           onClick={reset}

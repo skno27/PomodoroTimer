@@ -5,6 +5,7 @@ type TimeSetProps = {
 type ArrowButtonProps = {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   direction: "up" | "down";
+  id: string;
 };
 
 // type TimeControlState = {

@@ -13,7 +13,9 @@ export default function Home() {
         <TimeSet title="Session Length" />
       </div>
       <Clock />
-      <ControlBar />
+      <div className="flex justify-center">
+        <ControlBar />
+      </div>
     </div>
   );
 }
