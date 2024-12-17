@@ -111,19 +111,21 @@ export default function ControlBar() {
         id="start_stop"
         className="btn-control"
         onClick={play_pause}>
-        <div>
+        <div className="flex">
           <FontAwesomeIcon icon={faPlay} />
           <FontAwesomeIcon icon={faPause} />
         </div>
       </button>
-      <button
-        id="reset"
-        className="btn-control">
-        <FontAwesomeIcon
-          icon={faRepeat}
-          onClick={reset}
-        />
-      </button>
+      <div className="flex">
+        <button
+          id="reset"
+          className="btn-control">
+          <FontAwesomeIcon
+            icon={faRepeat}
+            onClick={reset}
+          />
+        </button>
+      </div>
     </div>
   );
 }
