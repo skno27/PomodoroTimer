@@ -106,7 +106,7 @@ export default function ControlBar() {
   return (
     <div
       id="control-div"
-      className="w-1/12 flex justify-evenly mt-8">
+      className="flex justify-center mt-8">
       <button
         id="start_stop"
         className="btn-control"
