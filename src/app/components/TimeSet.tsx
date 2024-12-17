@@ -7,7 +7,6 @@ import {
   incrementBreakLength,
   incrementSessionLength,
   updateClockTime,
-  updatePlaying,
 } from "../../../features/timeControl/timeControlSlice";
 
 export default function TimeSet({ title }: TimeSetProps) {

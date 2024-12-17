@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
 export default function Clock() {
-  let countDown = useSelector(
+  const countDown = useSelector(
     (state: RootState) => state.timeControl.countDown
   );
   return (

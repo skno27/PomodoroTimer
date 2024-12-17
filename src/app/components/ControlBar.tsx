@@ -50,7 +50,14 @@ export default function ControlBar() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [playing, sessionActive, sessionCountInSeconds, breakCountInSeconds]);
+  }, [
+    playing,
+    sessionActive,
+    sessionCountInSeconds,
+    breakCountInSeconds,
+    playAlert,
+    timeInSeconds,
+  ]);
 
   // listen for timer length changes when paused
   useEffect(() => {
